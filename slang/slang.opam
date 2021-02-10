@@ -1,0 +1,9 @@
+opam-version: "2.0"
+name: "slang"
+version: "0.1"
+depends: [ "ocaml" ]
+build: [
+  ["./configure" "--prefix=%{prefix}%"]
+  [make]
+]
+install: [make "install"]

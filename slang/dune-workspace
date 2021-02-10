@@ -1,0 +1,5 @@
+(lang dune 2.6)
+(context default)
+(env
+    (dev
+        (flags (:standard -w -32 -w -10))))
