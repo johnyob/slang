@@ -1,5 +1,5 @@
 (library
-    (name syntax)
-    (libraries lib))
+	(name syntax)
+	(libraries syntax_frontend))
 
 

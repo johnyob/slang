@@ -1,0 +1,6 @@
+(library
+	(name syntax_frontend)
+	(libraries base)
+	(preprocess (pps ppx_deriving.show ppx_deriving.eq ppx_deriving.ord ppx_compare ppx_sexp_conv)))
+
+
