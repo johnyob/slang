@@ -1,0 +1,8 @@
+(library
+	(name frontend_parsing)
+	(libraries base syntax))
+
+(ocamllex lexer)
+
+(menhir
+ (modules parser))
