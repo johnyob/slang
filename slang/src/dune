@@ -1,4 +1,5 @@
 (library
-    (name slang))
+    (name slang)
+    (libraries frontend syntax))
 
 (include_subdirs no)

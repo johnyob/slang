@@ -1,9 +1,2 @@
 (library
-    (name frontend)
-    (libraries syntax lib))
-
-
-(ocamllex lexer)
-
-(menhir
- (modules parser))
+	(name frontend))
