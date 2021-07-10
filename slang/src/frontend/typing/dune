@@ -1,4 +1,4 @@
 (library
 	(name frontend_typing)
  (libraries base syntax lens monads)
- (preprocess (pps ppx_deriving.show ppx_deriving.eq ppx_deriving.ord ppx_compare ppx_sexp_conv lens.ppx_deriving)))
+ (preprocess (pps ppx_deriving.show ppx_deriving.eq ppx_deriving.ord ppx_compare ppx_sexp_conv lens.ppx_deriving ppx_let)))

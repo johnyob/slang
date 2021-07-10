@@ -16,11 +16,9 @@ end
 
 module Constraint : sig
   type t = Type.t * Type.t [@@deriving eq, show]
-
   type error = Unify.error [@@deriving eq, show]
 
   val apply : Substitution.t -> t -> t
-
   val solve : Substitution.t -> t list -> (Substitution.t, error) Result.t
 end
 
@@ -34,24 +32,26 @@ module Infer : sig
   [@@deriving eq, show]
 
   type 'a t
+  val infer : 'a t -> Context.t -> ('a, error) Result.t
 
-  include Monad.S with type 'a t := 'a t
+  val infer_lit : Literal.located -> Type.t t
+  
 
-  (* val fail : error -> 'a t
-     val unify : Type.t -> Type.t -> unit t
-     val extend : (Context.Key.t * Scheme.t) -> 'a t -> 'a t
-     val merge : Context.t Located.t -> 'a t -> 'a t
-     val find : Context.Key.t Located.t -> Type.t t *)
+  val infer_pat : Pattern.located -> (Context.Variable.t * Type.t) t
+  val infer_pats : Pattern.located list -> (Context.Variable.t * Type.t list) t
+  
+  
+  val infer_branch : Expr.located_branch -> Type.t t
+  val infer_branches : Expr.located_branch list -> Type.t -> unit t
 
-  (* val infer_pat : Pattern.located -> (Context.Variable.t * Type.t) t
-     val infer_pats : Pattern.located list -> (Context.Variable.t * Type.t list) t
+  val infer_binding : Binding.located -> (Lid.located * Type.t) t
+  val infer_bindings : (Binding.located * Type.t) list -> (Lid.located * Type.t) list t
+  
+  val infer_binder : Binder.located -> Context.Variable.t t
+  val infer_expr : Expr.located -> Type.t t
 
-     val infer_lit : Literal.located -> Type.t t
+  val infer_decl : Declaration.located -> Context.t t
 
-     val infer_branch: Expr.located_branch -> Type.t t
-     val infer_branches: Expr.located_branch -> Type.t -> unit t
+  val infer_module : Module.t -> Context.t t
 
-     val infer_binder : Binder.located -> Context.Variable.t t
-
-     val infer_expr : Expr.located -> Type.t t *)
 end

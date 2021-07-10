@@ -99,4 +99,9 @@ module Substitution = struct
       ~combine:(fun ~key:_ v1 _ -> v1)
       s1
       (Map.map s2 ~f:(Type.apply s1))
+
+  let of_alist kvs =
+    match Map.of_alist (module Key) kvs with
+    | `Ok m -> Some m
+    | `Duplicate_key _ -> None
 end

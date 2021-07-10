@@ -13,6 +13,8 @@ module Substitution : sig
   val remove : t -> T.Var.t -> t
 
   val find : t -> T.Var.t -> T.Type.t option
+
+  val of_alist : (T.Var.t * T.Type.t) list -> t option
 end
 
 module type S = sig
