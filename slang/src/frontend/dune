@@ -1,2 +1,3 @@
 (library
-	(name frontend))
+	(name frontend)
+	(libraries base frontend_parsing frontend_typing))

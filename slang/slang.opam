@@ -7,6 +7,7 @@ depends: [
   "ppx_deriving"
   "lens"
   "monads"
+  "ppx_let"
 ]
 build: [
   ["./configure" "--prefix=%{prefix}%"]
