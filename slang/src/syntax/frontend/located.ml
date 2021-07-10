@@ -2,7 +2,7 @@ open Base
 
 module Position = struct
   type t = Position of (int * int) | NoPosition
-  [@@deriving eq, show, ord, sexp]
+  [@@deriving eq, show, sexp]
 
   let compare p1 p2 =
     match (p1, p2) with
