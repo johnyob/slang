@@ -32,26 +32,17 @@ module Infer : sig
   [@@deriving eq, show]
 
   type 'a t
+
   val infer : 'a t -> Context.t -> ('a, error) Result.t
-
   val infer_lit : Literal.located -> Type.t t
-  
-
   val infer_pat : Pattern.located -> (Context.Variable.t * Type.t) t
   val infer_pats : Pattern.located list -> (Context.Variable.t * Type.t list) t
-  
-  
   val infer_branch : Expr.located_branch -> Type.t t
   val infer_branches : Expr.located_branch list -> Type.t -> unit t
-
   val infer_binding : Binding.located -> (Lid.located * Type.t) t
   val infer_bindings : (Binding.located * Type.t) list -> (Lid.located * Type.t) list t
-  
   val infer_binder : Binder.located -> Context.Variable.t t
   val infer_expr : Expr.located -> Type.t t
-
   val infer_decl : Declaration.located -> Context.t t
-
   val infer_module : Module.t -> Context.t t
-
 end

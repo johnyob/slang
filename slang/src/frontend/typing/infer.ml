@@ -54,10 +54,10 @@ module Infer = struct
   [@@deriving eq, show]
 
   type 'a t = Context.t -> ('a * Constraint.t list, error) Result.t
+
   let run m ctx = m ctx
 
   module Infer_monad = struct
-
     include Monad.Make (struct
       type nonrec 'a t = 'a t
 
@@ -82,9 +82,11 @@ module Infer = struct
 
 
     let fail err _ = Error err
+
     (* let gaurd b ~error = if b then fail error else return () *)
     let ask ctx = Ok (ctx, [])
     let local ~f m ctx = run m (f ctx)
+
     (* let writer (x, cs) _ = Ok (x, cs) *)
     let tell cs _ = Ok ((), cs)
 
@@ -94,13 +96,11 @@ module Infer = struct
         let%bind x, cs = run m ctx in
         return ((x, cs), cs)
 
-
     (* let listens m ~f =
       let open Result.Let_syntax in
       fun ctx ->
         let%bind x, cs = run m ctx in
         return ((x, f cs), cs) *)
-
 
     (* let censor m ~f =
       let open Result.Let_syntax in
@@ -113,6 +113,7 @@ module Infer = struct
   open Lens.Infix
 
   let n = ref (-1)
+
   (* let reset () = n := -1 *)
 
   let fresh () =
@@ -363,8 +364,6 @@ module Infer = struct
     let%bind ctxs = all (List.map ~f:infer_decl decls) in
     return (List.fold_right ctxs ~init:Context.empty ~f:Context.extends)
 
-  let infer m ctx = 
-    Result.(run m ctx >>| fst)
 
-
+  let infer m ctx = Result.(run m ctx >>| fst)
 end

@@ -17,7 +17,7 @@ let loc () =
   let pos1 = Parsing.symbol_start_pos () 
   and pos2 = Parsing.symbol_end_pos () in
     Location.({ file_path=pos1.pos_fname
-    ; span=(Position (pos1.pos_lnum, pos1.pos_cnum), Position (pos2.pos_lnum, pos2.pos_cnum)) 
+    ; span=(Position (pos1.pos_lnum, pos1.pos_cnum - pos1.pos_bol + 1), Position (pos2.pos_lnum, pos2.pos_cnum - pos2.pos_bol + 1)) 
     })
     
 %}
@@ -73,7 +73,7 @@ program:
   | _module; EOF                                                { $1 }
 
 _module:
-  | separated_list(SEMICOLON, binder)                           { $1 }
+  | nonempty_list(terminated(binder, SEMICOLON))                { $1 }
 
 binder:
   | LET; REC; LBRACE; bs = nonempty_list(terminated(binding, SEMICOLON)); RBRACE                       

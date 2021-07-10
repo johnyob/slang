@@ -13,7 +13,11 @@ module Uid = struct
 end
 
 module Literal = struct
-  type t = LInt of int | LBool of bool | LUnit [@@deriving eq, show]
+  type t =
+    | LInt of int
+    | LBool of bool
+    | LUnit
+  [@@deriving eq, show]
 
   and located = t Located.t
 end
@@ -30,12 +34,16 @@ module Pattern = struct
 end
 
 module rec Binder : sig
-  type t = NonRec of Binding.located | Rec of Binding.located list
+  type t =
+    | NonRec of Binding.located
+    | Rec of Binding.located list
   [@@deriving eq, show]
 
   and located = t Located.t
 end = struct
-  type t = NonRec of Binding.located | Rec of Binding.located list
+  type t =
+    | NonRec of Binding.located
+    | Rec of Binding.located list
   [@@deriving eq, show]
 
   and located = t Located.t
@@ -59,7 +67,9 @@ end = struct
   and located = t Located.t
 
   let identifier b =
-    match b with BValue (lid, _) -> lid | BFunction (lid, _, _) -> lid
+    match b with
+    | BValue (lid, _) -> lid
+    | BFunction (lid, _, _) -> lid
 end
 
 and Expr : sig

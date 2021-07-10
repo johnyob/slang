@@ -11,7 +11,11 @@ module Uid : sig
 end
 
 module Literal : sig
-  type t = LInt of int | LBool of bool | LUnit [@@deriving eq, show]
+  type t =
+    | LInt of int
+    | LBool of bool
+    | LUnit
+  [@@deriving eq, show]
 
   and located = t Located.t
 end
@@ -30,7 +34,9 @@ end
 (* TODO: Refactor to remove rec modules. Use the trick from substitutable.ml *)
 
 module rec Binder : sig
-  type t = NonRec of Binding.located | Rec of Binding.located list
+  type t =
+    | NonRec of Binding.located
+    | Rec of Binding.located list
   [@@deriving eq, show]
 
   and located = t Located.t
